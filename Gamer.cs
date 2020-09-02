@@ -35,7 +35,7 @@ namespace BasketGame
         public override int Move(int weight, Gamer Player, out bool isWinner)
         {
 
-            int tmp = int.Parse(Console.ReadLine());//rand.Next(40, 140);
+            int tmp = rand.Next(40, 140);
             GameCreator.AllNumbers[GameCreator.CountNamedNumbers] = tmp;
             Console.WriteLine($"Player 1: {tmp}");
             GameCreator.CountNamedNumbers++;

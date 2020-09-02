@@ -72,8 +72,6 @@ namespace BasketGame
                         return;
                 }
             }
-
-            
         }
 
         public static void GameProcess(int numberOfPlayers, int basketWeight)
@@ -87,12 +85,25 @@ namespace BasketGame
                     return;
                 }
             }
+            GameOver(basketWeight, numberOfPlayers);
             Console.WriteLine("Game over");
         }
 
-        public static void GameOver()
+        public static void GameOver(int basketWeight, int numberOfPlayers)
         {
-
+            int min = BasketGame.Program.Range;
+            int minIndex = 0;
+            for(int i = 0; i < BasketGame.Program.Range; i++)
+            {
+                int diff = Math.Abs(AllNumbers[i] - basketWeight);
+                if(diff < min)
+                {
+                    min = diff;
+                    minIndex = i;
+                }
+            }
+            int player = (minIndex % numberOfPlayers);
+            Console.WriteLine($"{gamers[player].Name} was the closest.");
         }
 
     }

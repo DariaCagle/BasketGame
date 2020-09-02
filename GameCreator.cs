@@ -8,19 +8,29 @@ namespace BasketGame
 {
     public class GameCreator
     {
-        public List<Gamer> gamers = new List<Gamer>();
+        public static int[] AllNumbers = new int[BasketGame.Program.Range];
+        public static int CountNamedNumbers = 0;
 
-        private int numberOfPlayers;
+        public static List<Gamer> gamers = new List<Gamer>();
 
-        public GameCreator(int number)
+        public static void Add(Gamer s)
         {
-            numberOfPlayers = number;
+            gamers.Add(s);
         }
 
-        public void CreateList()
+        public static void Victory(Gamer player)
         {
-            for(int i = 0; i < numberOfPlayers; i++)
+            
+             Console.WriteLine ($"{player.Name} won the game!");
+        }
+
+
+        public static void CreateList(int numberOfPlayers)
+        {
+            for(int i = 1; i <= numberOfPlayers; i++)
             {
+
+                Console.WriteLine($"Player {i}");
                 Console.Write("Enter a player's name: ");
                 string name = Console.ReadLine();
 
@@ -34,14 +44,56 @@ namespace BasketGame
                 switch (choice)
                 {
                     case GAMER.JUSTGAMER:
-                        JustGamer g = new JustGamer(); 
-                        g.CreateGamer(name, numberOfPlayers);
+                        JustGamer jg = new JustGamer(); 
+                        jg.CreateGamer(name, numberOfPlayers);
+                        jg.AddGamer();
                         break;
+                    case GAMER.NOTEGAMER:
+                        NoteGamer ng = new NoteGamer();
+                        ng.CreateGamer(name, numberOfPlayers);
+                        ng.AddGamer();
+                        break;
+                    case GAMER.OVERGAMER:
+                        OverGamer og = new OverGamer();
+                        og.CreateGamer(name, numberOfPlayers);
+                        og.AddGamer();
+                        break;
+                    case GAMER.CHEATER:
+                        Cheater c = new Cheater();
+                        c.CreateGamer(name, numberOfPlayers);
+                        c.AddGamer();
+                        break;
+                    case GAMER.OVERCHEATER:
+                        OverCheater oc = new OverCheater();
+                        oc.CreateGamer(name, numberOfPlayers);
+                        oc.AddGamer();
+                        break;
+                    default:
+                        return;
                 }
             }
+
+            
         }
 
+        public static void GameProcess(int numberOfPlayers, int basketWeight)
+        {            
+            for (int j = 0; j <100; j++)
+            {
+                int player = (j % numberOfPlayers);
+                gamers[player].Move(basketWeight, gamers[player], out bool isWinner);
+                if (isWinner)
+                {
+                    return;
+                }
+            }
+            Console.WriteLine("Game over");
+        }
 
+        public static void GameOver()
+        {
+
+        }
 
     }
 }

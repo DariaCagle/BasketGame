@@ -4,17 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class RandomClass
-{
-    public static int GetRandom()
-    { 
-        Random random = new Random();
-        return random.Next(40, 140);
-    }
-}
-
-
-
 enum GAMER
 {
     JUSTGAMER = 1,
@@ -37,13 +26,11 @@ namespace BasketGame
             Console.Write("Enter number of players (2 - 8): ");
             int NumberOfPlayers = NumberCheck();
             Console.WriteLine(NumberOfPlayers);
-            GameCreator game = new GameCreator(NumberOfPlayers);
-            game.CreateList();
-
-
-            int BasketWeight = RandomClass.GetRandom();
+            GameCreator.CreateList(NumberOfPlayers);
+            Random random = new Random();
+            int BasketWeight = random.Next(40, 140);
             Console.WriteLine($"The weight of the basket is {BasketWeight} kg");
-
+            GameCreator.GameProcess(NumberOfPlayers, basketWeight: BasketWeight);
         }
 
         public static int NumberCheck()
